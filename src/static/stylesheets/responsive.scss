@@ -1,0 +1,35 @@
+// ---------------------------------------------------------------------------
+// Breakpoint Settings (screen width)
+
+$screen-s  : 30.0625em; //  481px at 16px base font
+$screen-m  : 37.5em;    //  600px at 16px base font
+$screen-l  : 54em;      //  864px at 16px base font
+$screen-xl : 78.75em;   // 1260px at 16px base font
+
+$breakpoints: (
+  '(min-width: #{$screen-s})' 'S',
+  '(min-width: #{$screen-m})' 'M',
+  '(min-width: #{$screen-l})' 'L',
+  '(min-width: #{$screen-xl})' 'XL'
+);
+
+// -----------------------------------------------------------------------------
+// Breakpoints: Primary collection of available media query breakpoints
+@mixin breakpoint($point, $direction: 'up') {
+  @each $breakpoint in $breakpoints {
+    $query: nth($breakpoint, 1);
+    $name: nth($breakpoint, 2);
+
+    @if $direction == up {
+      @if ($name == $point) {
+        @media #{$query} { @content }
+      }
+    } @else {
+      @if ($name == $point) {
+        @media #{str-replace($query, "min", "max")} {
+          @content
+        }
+      }
+    }
+  }
+};

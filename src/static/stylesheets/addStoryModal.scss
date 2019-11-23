@@ -1,0 +1,22 @@
+.modal-card {
+  @include breakpoint(S) {
+    width: auto;
+    height: auto;
+  }
+
+  @include breakpoint(M) {
+    width: 480px;
+    height: 650px;
+  }
+
+}
+
+.hideme {
+  visibility: hidden;
+  display: none;
+}
+
+.showme {
+  visibility: visible;
+  display: inherit;
+}
