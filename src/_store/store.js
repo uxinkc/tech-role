@@ -2,11 +2,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { loading } from './loading.module';
-import { auth } from './auth.module';
-import { stories } from './stories.module';
-import { storyLabels } from './storyLabels.module';
-import { stakeholders } from './stakeholders.module';
-import { goals } from './goals.module';
+import { tech } from './tech.module';
+import { roles } from './roles.module';
 
 
 Vue.use( Vuex );
@@ -14,10 +11,7 @@ Vue.use( Vuex );
 export const store = new Vuex.Store({
   modules: {
     loading,
-    auth,
-    stories,
-    storyLabels,
-    stakeholders,
-    goals
+    tech,
+    roles
   }
 });
