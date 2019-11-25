@@ -1,5 +1,5 @@
 
-import { goalsService } from '../_services/roles.service'
+import { rolesService } from '../_services/roles.service'
 
 const state = () => ({
   all: []

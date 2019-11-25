@@ -14,7 +14,7 @@
         
       </template>
 
-      <template slot="end" v-if="loggedIn">
+      <template slot="end">
       
         <b-navbar-item tag="router-link" :to="{ path: '/' }">Tech to Roles</b-navbar-item>
         <b-navbar-item tag="router-link" :to="{ path: '/roles' }">Roles to Tech</b-navbar-item>

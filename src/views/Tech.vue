@@ -10,7 +10,7 @@
 
           <b-field>
             <b-autocomplete
-              v-model="tech"
+              v-model="t"
               placeholder="e.g. Angular"
               :keep-first="false"
               :open-on-focus="true"
@@ -21,14 +21,15 @@
             </b-autocomplete>
           </b-field>
 
-          <div class="box" v-if="showResults">
+          <div v-if="showResults">
             <b-table
               :data="roles"
-              :columns="columns">
+              :columns="columns"
+              :mobile-cards="hasMobileCards">
               <template slot-scope="props">
 
-                <b-table-column field="roles" label="Roles">
-                    {{ props.row.roles }}
+                <b-table-column field="role" label="Role">
+                    {{ props.row.role }}
                 </b-table-column>
 
                 <b-table-column field="desc" label="Description">
@@ -65,12 +66,15 @@ export default {
   
   data() {
     return {
-			showResults: false,
+      t: '',
+      showResults: true,
+      hasMobileCards: true,
 			selected: '',
       columns: [
         {
-          field: 'roles',
-          label: 'Roles'
+          field: 'role',
+          label: 'Role',
+          width: '200'
         },        
         {
           field: 'desc',
@@ -110,7 +114,8 @@ export default {
   },
 
   created(){
-    this.$store.dispatch('roles/getTechFromApi');
+    this.$store.dispatch('tech/getTechFromApi');
+    this.$store.dispatch('roles/getRolesFromApi');
   }
 }
 </script>

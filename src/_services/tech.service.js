@@ -1,31 +1,29 @@
 /*
-teams API
+roles API
 
-accountId: string
-name: string
-members: array
-type: string
+tech: string
 desc: string
+assocRoles: array
 
 */
 
 import firebase from '../firebase/firebase';
 import uuidv1 from 'uuid/v1';
 
-export const teamsService = {
+export const techService = {
 
   getData(callback) {
 
-    firebase.db.collection('teams').get().then( data => {
+    firebase.db.collection('tech').get().then( data => {
       
       if(data.size > 0) {
 
-        let teams = [];
-        data.docs.forEach( team => {
-          teams.push( team.data() );
+        let tech = [];
+        data.docs.forEach( t => {
+          tech.push( t.data() );
         });
 
-        callback( teams );
+        callback( tech );
         
       } else {
         console.log('No doc exists');
@@ -38,21 +36,19 @@ export const teamsService = {
 
   },
 
-  submitNewTeam(data, callback){
+  submitNewTech(data, callback){
 
     let uid = '';
     uid = uuidv1();
-    let teamData = {
-      accountId: data.accountId,
-      name: data.name,
-      members: data.members,
-      type: data.type,
-      desc: data.desc
+    let techData = {
+      role: data.tech,
+      desc: data.desc,
+      assocRoles: data.assocRoles
     };
 
-    firebase.db.collection('teams')
+    firebase.db.collection('tech')
       .doc(uid)
-      .set(teamData)
+      .set(techData)
       .then( data => {
 
         callback( data );
@@ -60,6 +56,7 @@ export const teamsService = {
       }).catch( (error) => {
         console.log('catch error', error);
       });
+    
 
   }
 

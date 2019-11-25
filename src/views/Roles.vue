@@ -10,7 +10,7 @@
 
           <b-field>
             <b-autocomplete
-              v-model="roles"
+              v-model="role"
               placeholder="e.g. Front-end Developer"
               :keep-first="false"
               :open-on-focus="true"
@@ -21,27 +21,25 @@
             </b-autocomplete>
           </b-field>
 
-          <div class="box" v-if="showResults">
-            <b-table
-              :data="tech"
-              :columns="columns">
-              <template slot-scope="props">
 
-                <b-table-column field="tech" label="Tech">
-                    {{ props.row.tech }}
-                </b-table-column>
+          <div v-if="showResults">
 
-                <b-table-column field="desc" label="Description">
-                  <span class="">{{ props.row.desc }}</span>
-                </b-table-column>
-
-                <b-table-column field="assocTech" label="Associated Roles">
-                    <b-button v-for="role in props.row.assocRoles" @click="searchAssociatedRoles(role)" type="is-info">{{role}}</b-button>
-                </b-table-column>                
-            	</template>
-            </b-table>
+            <div v-for="t in tech" class="content">
+              <h3>
+                  {{t.tech}}
+              </h3>
+              <p>
+                  {{t.desc}}
+              </p>
+            </div>
+            <b-collapse :open="false" position="is-bottom" aria-id="contentIdForA11y1">
+              <a slot="trigger" slot-scope="props" aria-controls="contentIdForA11y1">
+                  <b-icon :icon="!props.open ? 'menu-down' : 'menu-up'"></b-icon>
+                  {{ !props.open ? 'View Associated Roles' : 'Hide Roles' }}
+              </a>
+              <span><a v-for="role in t.assocRoles" @click="searchAssociatedRoles(role)" type="is-info">{{role}}</a></span>
+            </b-collapse>
           </div>
-
         </section>
       </div>
     </main>
@@ -65,22 +63,8 @@ export default {
   
   data() {
     return {
-      showResults: false,
-      selected: '',
-      columns: [
-        {
-          field: 'tech',
-          label: 'Technology'
-        },        
-        {
-          field: 'desc',
-          label: 'Description'
-				},
-				{
-          field: 'assocRoles',
-          label: 'Associated Roles'
-				}
-			]
+      role: '',
+      showResults: true,
     }
   },
 
@@ -110,6 +94,7 @@ export default {
   },
 
   created(){
+    this.$store.dispatch('tech/getTechFromApi');
     this.$store.dispatch('roles/getRolesFromApi');
   }
 }

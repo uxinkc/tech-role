@@ -96,14 +96,6 @@ module.exports = {
           }
         ]
       },
-      {
-        test: require.resolve("jquery"),
-        use: [
-          {
-            loader: "imports-loader?$=jquery"
-          }
-        ]
-      },
 
       {
         /* Future option - allow customization of paths to include/exclude? */
