@@ -3,28 +3,28 @@ import { service } from '../_services/service';
 
 const state = () => ({
   all: [],
-  searchResults: []
+  assocRoles: []
 })
 
 const getters = {
   
-  getTech (state) {
+  getTech(state) {
     return state.all;
   },
 
-  getSearchResults(state) {
-    return state.searchResults;
+  getAssocRoles(state) {
+    return state.assocRoles;
   }
 }
 
 const actions = {
 
   getTechFromApi ({ commit }) {
-    service.getData('tech', data => { commit('SET_ALL_TECH', data)} );
+    service.getFakeData('tech', data => { commit('SET_ALL_TECH', data)} );
   },
 
-  getTechSearchResultsFromApi ({commit}, str){
-    commit('GET_SEARCH_RESULTS', str);
+  getRolesFromTech ({commit}, str){
+    service.getRolesFromTech(str, data => { commit('GET_SEARCH_RESULTS', data) } );
   }
 
 }
@@ -35,18 +35,20 @@ const mutations = {
     state.all = tech;
   },
 
-  GET_SEARCH_RESULTS (state, str){
-    console.log('tech.modules.. ',str)
-    console.log('tech.state',state.all)
-    let newResults = state.all.map( function(obj){
-      console.log(obj.tech);
-      if(str == obj['tech']){
-        return obj
-      }
-    });
-    
-    state.searchResults = newResults;
+  GET_SEARCH_RESULTS (state, data){
+    console.log('received from service', data)
+    if(data.length > 0){
+      state.assocRoles = data;
+    } else {
+      state.assocRoles = [{
+        roles: 'No Results',
+        desc: '',
+        assocTech: []
+      }];
+    }
   }
+
+  
 
 
 }

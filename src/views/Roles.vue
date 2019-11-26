@@ -6,26 +6,26 @@
     <main id="main-content">
       <div class="container">
         <section class="section">
-          <h1 class="title">Role <i class="material-icons">trending_flat</i> Tech</h1>
+          <h1 class="title">Give Role <i class="material-icons">trending_flat</i> Get Tech</h1>
 
           <b-field>
             <b-autocomplete
-              :expanded="true"
               v-model="role"
               placeholder="e.g. Front-end Developer"
-              :keep-first="false"
-              :open-on-focus="true"
+              :keep-first="keepFirst"
+              :open-on-focus="openOnFocus"
               :data="rolesAutocompleteData"
-              field="roles"
+              field="role"
               ref="autocompleteRoles"
+              :expanded="true"
               @select="option => selected = option">
             </b-autocomplete>
-            <b-button class="button is-primary" @click="getTechFromRole()">Find Technologies</b-button>
+            <b-button class="button is-primary" @click="getTechFromRole()">Find Tech</b-button>
           </b-field>
 
           <div v-if="showResults">
             <hr />
-            <div v-for="tech in techSearchResults">
+            <div v-for="tech in getAssocTech">
               <div class="content">
                 <h3>
                     {{tech.tech}}
@@ -70,9 +70,11 @@ export default {
   
   data() {
     return {
-      tech: [],
+      //tech: [],
       role: '',
-      showResults: true,
+      keepFirst: false,
+      openOnFocus: true,
+      showResults: false,
       selected: ''
     }
   },
@@ -84,8 +86,8 @@ export default {
       return data;
     },
 
-    techSearchResults: function(){
-      let results = this.$store.getters['tech/getSearchResults'];
+    getAssocTech: function(){
+      let results = this.$store.getters['roles/getAssocTech'];
       return results;
     },
 
@@ -103,6 +105,7 @@ export default {
 		},
 
     searchAssociatedRoles: function(role){
+      window.scrollTo(0,0);
       this.role = role;
     },
     

@@ -16,6 +16,11 @@
           </div>
         </div>
       </section>
+      <section>
+        <div v-for="job in jobs" class="card">
+          <h4>{{job.title}}</h4>
+        </div>
+      </section>
     </main>
 
 
@@ -42,7 +47,10 @@ export default {
   },
 
   computed: {
-
+    jobs: function(){
+      let data = this.$store.getters['scrape/getScrape'];
+      return data;
+    }
 
   },
   
@@ -53,7 +61,7 @@ export default {
   },
 
   created(){
-    this.$store.dispatch('scrape/getScrapeFromApi');
+    //this.$store.dispatch('scrape/getScrapeFromApi');
   }
 }
 </script>

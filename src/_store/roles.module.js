@@ -1,10 +1,9 @@
 
-//import { rolesService } from '../_services/roles.service'
 import { service } from '../_services/service.js';
 
 const state = () => ({
   all: [],
-  searchResults: []
+  assocTech: []
 })
 
 const getters = {
@@ -13,19 +12,19 @@ const getters = {
     return state.all;
   },
 
-  getSearchResults(state) {
-    return state.searchResults;
+  getAssocTech(state) {
+    return state.assocTech;
   }
 }
 
 const actions = {
 
   getRolesFromApi ({ commit }) {
-    service.getData('roles', data => { commit('SET_ALL_ROLES', data) } );
+    service.getFakeData('roles', data => { commit('SET_ALL_ROLES', data) } );
   },
 
   getTechFromRole ({commit}, str){
-    service.getResults('roles', str, data => { commit('GET_SEARCH_RESULTS', data) } );
+    service.getTechFromRole(str, data => { commit('GET_SEARCH_RESULTS', data) } );
   }
 }
 
@@ -36,7 +35,16 @@ const mutations = {
   },
 
   GET_SEARCH_RESULTS (state, data){
-    state.searchResults = data;
+    console.log('received from service', data)
+    if(data.length > 0){
+      state.assocTech = data;
+    } else {
+      state.assocTech = [{
+        tech: 'No Results',
+        desc: '',
+        assocRoles: []
+      }];
+    }
   }
 
 }

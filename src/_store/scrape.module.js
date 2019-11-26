@@ -14,15 +14,15 @@ const getters = {
 
 const actions = {
   getScrapeFromApi ({ commit }) {
-    scrapeService.getData( data => {
+    scrapeService.getJobsGithub( data => {
       commit('SET_ALL_DATA', data);
     });
   }
 }
 
 const mutations = {
-  SET_ALL_DATA (state, goals) {
-    state.all = goals;
+  SET_ALL_DATA (state, data) {
+    state.all = data;
   }
 }
 

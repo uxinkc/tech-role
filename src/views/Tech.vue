@@ -6,26 +6,27 @@
     <main id="main-content">
       <div class="container">
         <section class="section">
-          <h1 class="title">Tech <i class="material-icons">trending_flat</i> Roles</h1>
+          <h1 class="title">Give Tech <i class="material-icons">trending_flat</i> Get Roles</h1>
 
           <b-field>
             <b-autocomplete
               v-model="tech"
               placeholder="e.g. Angular"
-              :keep-first="false"
-              :open-on-focus="true"
+              :keep-first="keepFirst"
+              :open-on-focus="openOnFocus"
               :data="techAutocompleteData"
               field="tech"
               ref="autocompleteTech"
+              :expanded="true"
               @select="option => selected = option">
             </b-autocomplete>
+            <b-button class="button is-primary" @click="getRolesFromTech()">Find Roles</b-button>
           </b-field>
-
-          <hr />
+          
 
           <div v-if="showResults">
-
-            <div v-for="role in rolesResults">
+            <hr />
+            <div v-for="role in getAssocRoles">
               <div class="content">
                 <h3>
                     {{role.role}}
@@ -72,9 +73,11 @@ export default {
   
   data() {
     return {
-      role: [],
+      //role: [],
       tech: '',
-      showResults: true,
+      keepFirst: false,
+      openOnFocus: true,
+      showResults: false,
 			selected: '',
     }
   },
@@ -86,7 +89,12 @@ export default {
       return data;
     },
 
-    rolesResults: function(){
+    getAssocRoles: function(){
+      let results = this.$store.getters['tech/getAssocRoles'];
+      return results;
+    },
+
+    rolesData: function(){
       let data = this.$store.getters['roles/getRoles'];
       return data;
     }
@@ -100,8 +108,16 @@ export default {
     },
 
     searchAssociatedTech: function(tech){
-			alert('find role with: ' + tech );
-		}
+      window.scrollTo(0,0);
+			this.tech = tech;
+    },
+    
+    getRolesFromTech: function(){
+      this.showResults = true;
+      let searchStr = this.$refs.autocompleteTech.value;
+      this.$store.dispatch('tech/getRolesFromTech', searchStr);
+    }
+
   },
 
   mounted(){
