@@ -3,7 +3,8 @@
     <b-navbar :shadow="true">
       <template slot="brand">
         <b-navbar-item tag="router-link" :to="{ path: '/' }">
-          <div class="is-size-2 has-text-weight-bold is-family-sans-serif">Tech Role</div>
+
+          <div class="is-size-2 has-text-weight-bold is-family-sans-serif">Tech<img src="../static/img/cinn-roll1.png" height="80"/>Role</div>
           <!--<img
             src="https://www.pngkey.com/png/full/141-1416946_logos-what-is-a-generic-logo-transparent-background.png"
             alt="Simplify with Story"
@@ -16,8 +17,8 @@
 
       <template slot="end">
       
-        <b-navbar-item tag="router-link" :to="{ path: '/' }">Tech to Roles</b-navbar-item>
-        <b-navbar-item tag="router-link" :to="{ path: '/roles' }">Roles to Tech</b-navbar-item>
+        <b-navbar-item tag="router-link" :to="{ path: '/tech' }">Find Roles</b-navbar-item>
+        <b-navbar-item tag="router-link" :to="{ path: '/roles' }">Find Tech</b-navbar-item>
           
       </template>
       

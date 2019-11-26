@@ -5,9 +5,10 @@ import { store } from './_store/store';
 import App from './views/App';
 import Buefy from 'buefy';
 
+
 Vue.config.productionTip = false;
 
-Vue.use(Buefy, {defaultIconPack: 'fas'});
+Vue.use(Buefy, {defaultPack: 'mdi'});
 
 new Vue({
   el: '#app',

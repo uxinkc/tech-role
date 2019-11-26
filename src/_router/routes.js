@@ -2,6 +2,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
+const Home = () => import('../views/Home');
 const Roles = () => import('../views/Roles');
 const Tech = () => import('../views/Tech');
 
@@ -12,6 +13,11 @@ export default new Router({
   routes: [
     { 
       path: '/',
+      name: 'home',
+      component: Home
+    },
+    { 
+      path: '/tech',
       name: 'tech',
       component: Tech
     },
