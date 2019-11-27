@@ -15,13 +15,29 @@
         
       </template>
 
-      <template slot="end">
+      <template slot="end" v-if="loggedIn">
       
         <b-navbar-item tag="router-link" :to="{ path: '/tech' }">Find Roles</b-navbar-item>
         <b-navbar-item tag="router-link" :to="{ path: '/roles' }">Find Tech</b-navbar-item>
+
+        <b-navbar-item tag="div">
+          <div class="buttons">
+            <a class="button is-light" @click="logout()">Log Out</a>
+          </div>
+        </b-navbar-item>
           
       </template>
-      
+      <template slot="end" v-else>
+        
+        <b-navbar-item tag="div">
+          <div class="buttons">
+            <a class="button is-primary" @click="signUp()">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light" @click="login()">Log in</a>
+          </div>
+        </b-navbar-item>
+      </template>
     </b-navbar>
   </header>
 </template>
@@ -41,10 +57,22 @@ export default {
   },
 
   computed: {
-
+    loggedIn: function(){  
+      return this.$store.getters['auth/getIsLoggedIn']; 
+    }
   },
 
   methods: {
+
+    login: function() {
+      this.$store.dispatch('auth/login');
+    },
+    logout: function() {
+      this.$store.dispatch('auth/logout');
+    },
+    signUp: function() {
+      this.$store.dispatch('auth/signup', {email:'', password:''});
+    },
 
 
   },

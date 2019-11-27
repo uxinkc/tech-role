@@ -61,6 +61,7 @@
     "buefy": "^0.8.6",
     "dotenv": "^8.2.0",
     "firebase": "^7.4.0",
+    "fuse.js": "^3.4.6",
     "html-beautify-webpack-plugin": "^1.0.5",
     "pixrem": "^4.0.1",
     "rxjs": "^6.5.3",

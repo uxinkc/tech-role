@@ -10,8 +10,9 @@ import uuidv1 from 'uuid/v1';
 
 import { fromFetch } from 'rxjs/fetch';
 import { switchMap, catchError, map } from 'rxjs/operators';
+import Fuse from 'fuse.js';
 
-const URL = 'https://jobs.github.com/positions.json?location=new+york';
+const URL = 'https://jobs.github.com/positions.json?location=us';
 //const URL = 'https://api.linkedin.com/v2/titles/{id}?locale=en_US';
 const proxy = 'https://cors-anywhere.herokuapp.com/';
 
@@ -32,7 +33,10 @@ export const scrapeService = {
         if (response.ok) {
           // OK return data
           let data = response.json();
-          return data;
+
+          let newData = this.extractSkills(data);
+
+          return newData;
         } else {
           // Server is returning a status requiring the client to try something else.
           return of({ error: true, message: `Error ${response.status}` });
@@ -51,6 +55,20 @@ export const scrapeService = {
     })
 
     
+  },
+
+  extractSkills(data){
+
+    let options = {
+      keys: ['title']
+    };
+    let fuse = new Fuse(data, options);
+    fuse.search('Software');
+    let newData = fuse;
+    
+    console.log('fuse', data)
+  
+    return fuse;
   },
 
   getData(callback) {

@@ -7,4 +7,5 @@ node_modules/
 dist/
 scratch.html
 .editorconfig
+config/
 package-lock.json
